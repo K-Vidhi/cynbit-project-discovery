@@ -1,0 +1,31 @@
+{% extends 'inquiries/base.html' %}
+{% block title %}Brief received | Cynbit{% endblock %}
+{% block content %}
+<section class="section center-page">
+  <div class="container narrow text-center">
+    <div class="success-mark"><svg class="ic"><use href="#i-check"/></svg></div>
+    <span class="kicker">Brief received</span>
+    <h1>Thank you, {{ inquiry.name|title }}.</h1>
+    <p class="lead">Your project brief is saved. A member of the team will review it and reply to <b>{{ inquiry.email }}</b> within 24 hours.</p>
+
+    <div class="reference-card">
+      <small>Your inquiry reference</small>
+      <strong id="refValue">{{ inquiry.reference }}</strong>
+      <span>{{ inquiry.get_service_display }} &middot; {{ inquiry.created_at|date:'d M Y, h:i A' }}</span>
+      <button type="button" class="btn btn-ghost btn-sm" data-copy="#refValue">Copy reference</button>
+    </div>
+
+    <ol class="next-steps">
+      <li><span class="step-badge">1</span><div><b>Review</b><p>Our architects read your brief and shape the questions that matter.</p></div></li>
+      <li><span class="step-badge">2</span><div><b>Discovery call</b><p>We schedule a short call to confirm scope, goals and constraints.</p></div></li>
+      <li><span class="step-badge">3</span><div><b>Blueprint</b><p>You receive a tailored strategic overview with the way forward.</p></div></li>
+    </ol>
+
+    <div class="hero-actions center">
+      <a class="btn btn-primary" href="{% url 'track' %}">Track this brief <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-ghost" href="{% url 'home' %}">Back to the hub</a>
+    </div>
+    <p class="fine-print">Keep this reference for your records. This prototype does not create a real Cynbit support ticket.</p>
+  </div>
+</section>
+{% endblock %}

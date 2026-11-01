@@ -1,0 +1,41 @@
+{% extends 'inquiries/base.html' %}
+{% block title %}{{ inquiry.reference }} | Inquiry manager{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container wide">
+    <a class="back-link" href="{% url 'dashboard' %}">&larr; All briefs</a>
+    <div class="dash-head"><div><span class="kicker">Brief {{ inquiry.reference }}</span><h1>{{ inquiry.name }}</h1></div><span class="pill pill-{{ inquiry.status }}">{{ inquiry.get_status_display }}</span></div>
+
+    <div class="detail-grid">
+      <div class="form-card compact">
+        <dl class="detail-list">
+          <div><dt>Email</dt><dd><a href="mailto:{{ inquiry.email }}">{{ inquiry.email }}</a></dd></div>
+          <div><dt>Phone</dt><dd>{{ inquiry.phone|default:"&ndash;" }}</dd></div>
+          <div><dt>Company</dt><dd>{{ inquiry.company|default:"&ndash;" }}</dd></div>
+          <div><dt>Industry</dt><dd>{{ inquiry.industry|default:"&ndash;" }}</dd></div>
+          <div><dt>Service</dt><dd>{{ inquiry.get_service_display }}</dd></div>
+          <div><dt>Project</dt><dd>{{ inquiry.project_type|default:"&ndash;" }}</dd></div>
+          <div><dt>Budget</dt><dd>{{ inquiry.get_budget_display|default:"&ndash;" }}</dd></div>
+          <div><dt>Timeline</dt><dd>{{ inquiry.get_timeline_display|default:"&ndash;" }}</dd></div>
+          <div><dt>Received</dt><dd>{{ inquiry.created_at|date:"d M Y, h:i A" }}</dd></div>
+        </dl>
+        <h3 class="mini-title">Requirements</h3>
+        <p class="prewrap">{{ inquiry.requirements|default:"&ndash;" }}</p>
+        <h3 class="mini-title">Project overview</h3>
+        <p class="prewrap">{{ inquiry.description }}</p>
+      </div>
+
+      <form method="post" class="form-card compact">
+        {% csrf_token %}
+        <h3 class="mini-title">Update status</h3>
+        <div class="field"><label for="status">Status</label>
+          <select name="status" id="status">{% for key, label in statuses %}<option value="{{ key }}" {% if key == inquiry.status %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+        <div class="field"><label for="admin_notes">Internal notes</label>
+          <textarea name="admin_notes" id="admin_notes" rows="6" placeholder="Only visible to staff">{{ inquiry.admin_notes }}</textarea></div>
+        <button class="btn btn-primary" type="submit">Save changes</button>
+        <p class="fine-print">Last updated {{ inquiry.updated_at|date:"d M Y, h:i A" }}</p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

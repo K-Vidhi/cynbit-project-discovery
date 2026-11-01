@@ -1,0 +1,217 @@
+{% extends 'inquiries/base.html' %}
+{% block title %}Start Your Next Project With Us | Cynbit{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><i class="dot"></i> Inquiry Hub</span>
+      <h1>Start Your Next Project <em>With Us</em></h1>
+      <p class="lead">Whether you&rsquo;re building a product, automating operations, or scaling digitally, our architects are ready to design the solution that scales with your ambition. The Cynbit team is ready to help.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#inquiry">Write us <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+918947962667"><svg class="ic ic-sm"><use href="#i-phone"/></svg> Secure Voice Line</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="orb orb-a"></div><div class="orb orb-b"></div>
+      <div class="badge-card badge-top"><span class="badge-ic"><svg class="ic"><use href="#i-brain"/></svg></span><div><small>Intelligence</small><b>AI-first thinking</b></div></div>
+      <div class="badge-card badge-bottom"><span class="badge-ic"><svg class="ic"><use href="#i-shield"/></svg></span><div><small>Status</small><b>100% Trust</b></div></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section section-tint" id="overview">
+  <div class="container narrow">
+    <span class="kicker">About this experience</span>
+    <h2>A clearer first conversation.</h2>
+    <p class="muted">This independent assessment prototype demonstrates how a guided project brief can help a technology team understand a potential project before the first discovery call. It is a demonstration and is not connected to Cynbit's production systems.</p>
+  </div>
+</section>
+<section class="section" id="expertise">
+  <div class="container narrow">
+    <span class="kicker">Areas of expertise</span>
+    <h2>Choose the kind of help you need.</h2>
+    <p class="muted">The project form adapts its questions to the service you select, helping you share useful context without filling in a long generic message.</p>
+    <div class="faq">
+      <details open><summary>Software &amp; product development</summary><p>Web applications, custom software, product builds and integrations.</p></details>
+      <details><summary>AI &amp; workflow automation</summary><p>AI-enabled features, process automation and intelligent workflows.</p></details>
+      <details><summary>Cloud &amp; backend engineering</summary><p>Backend systems, APIs, cloud infrastructure and deployment needs.</p></details>
+      <details><summary>Digital growth</summary><p>Digital marketing, search visibility and growth-focused web improvements.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="inquiry">
+  <div class="container inquiry-layout">
+    <div class="form-card">
+      <span class="kicker">Project Intelligence</span>
+      <h2>The Blueprint.</h2>
+      <p class="muted">Tell us what you&rsquo;re building. Our team will analyse your requirements and prepare a tailored strategic overview before we connect. Three short steps, about two minutes.</p>
+
+      <form id="inquiryForm" method="post" action="{% url 'home' %}#inquiry" novalidate>
+        {% csrf_token %}
+        <div class="hp-field" aria-hidden="true"><label>Leave this field empty {{ form.website }}</label></div>
+        {% if form.website.errors %}<p class="form-alert" role="alert">We couldn&rsquo;t submit your brief. Please refresh the page and try again.</p>{% endif %}
+        {% if form.errors and not form.website.errors %}<p class="form-alert" role="alert">Please check the highlighted fields below.</p>{% endif %}
+
+        <ol class="stepper" id="stepper" aria-label="Progress">
+          <li class="is-current"><button type="button" data-goto="0"><span class="step-badge">1</span><span class="step-label">Contact</span></button></li>
+          <li><button type="button" data-goto="1"><span class="step-badge">2</span><span class="step-label">Project</span></button></li>
+          <li><button type="button" data-goto="2"><span class="step-badge">3</span><span class="step-label">Scope</span></button></li>
+        </ol>
+        <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+        <!-- STEP 1 -->
+        <section class="form-step is-active" data-step="1" {% if form.name.errors or form.email.errors or form.phone.errors %}data-has-error{% endif %}>
+          <h3 class="step-title"><span class="step-badge">1</span> Who are we connecting with?</h3>
+          <div class="grid-2">
+            <div class="field {% if form.name.errors %}has-error{% endif %}">
+              <label for="{{ form.name.id_for_label }}">Full name <span class="req">*</span></label>
+              {{ form.name }}
+              <p class="field-error" data-error-for="name" role="alert">{% if form.name.errors %}{{ form.name.errors.0 }}{% endif %}</p>
+            </div>
+            <div class="field {% if form.email.errors %}has-error{% endif %}">
+              <label for="{{ form.email.id_for_label }}">Email address <span class="req">*</span></label>
+              {{ form.email }}
+              <p class="field-error" data-error-for="email" role="alert">{% if form.email.errors %}{{ form.email.errors.0 }}{% endif %}</p>
+            </div>
+            <div class="field {% if form.phone.errors %}has-error{% endif %}">
+              <label for="{{ form.phone.id_for_label }}">Phone</label>
+              {{ form.phone }}
+              <p class="field-error" data-error-for="phone" role="alert">{% if form.phone.errors %}{{ form.phone.errors.0 }}{% endif %}</p>
+            </div>
+            <div class="field">
+              <label for="{{ form.company.id_for_label }}">Company</label>
+              {{ form.company }}
+            </div>
+            <div class="field full">
+              <label for="{{ form.industry.id_for_label }}">Industry</label>
+              {{ form.industry }}
+              <datalist id="industryList">
+                <option value="Retail &amp; E-commerce"><option value="Healthcare"><option value="Education"><option value="Finance &amp; Fintech">
+                <option value="Real Estate"><option value="Manufacturing"><option value="Hospitality"><option value="Logistics">
+                <option value="Media &amp; Marketing"><option value="Non-profit"><option value="Technology">
+              </datalist>
+            </div>
+          </div>
+          <div class="step-actions"><span></span><button type="button" class="btn btn-primary next">Continue <svg class="ic ic-sm"><use href="#i-arrow"/></svg></button></div>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="form-step" data-step="2" {% if form.service.errors %}data-has-error{% endif %}>
+          <h3 class="step-title"><span class="step-badge">2</span> What are we architecting?</h3>
+          <fieldset class="service-fieldset {% if form.service.errors %}has-error{% endif %}">
+            <legend class="field-legend">Area of expertise <span class="req">*</span></legend>
+            <div class="service-grid">
+              {% for radio in form.service %}
+              <label class="service-option">
+                <input type="radio" name="{{ radio.data.name }}" value="{{ radio.data.value }}" {% if radio.data.selected %}checked{% endif %} required>
+                <span class="service-body">
+                  <span class="service-icon"><svg class="ic"><use href="#i-{% if radio.data.value == 'software' %}code{% elif radio.data.value == 'ai' %}spark{% elif radio.data.value == 'cloud' %}cloud{% elif radio.data.value == 'marketing' %}trend{% else %}help{% endif %}"/></svg></span>
+                  <span class="service-name">{{ radio.choice_label }}</span>
+                </span>
+              </label>
+              {% endfor %}
+            </div>
+            <p class="field-error" data-error-for="service" role="alert">{% if form.service.errors %}{{ form.service.errors.0 }}{% endif %}</p>
+          </fieldset>
+          <div class="prompt-box" id="servicePrompt" aria-live="polite"><strong>Let&rsquo;s shape the brief.</strong><p>Choose a capability to see questions tailored to it.</p></div>
+          <div class="field">
+            <label for="{{ form.project_type.id_for_label }}">Project / initiative name</label>
+            {{ form.project_type }}
+          </div>
+          <div class="field">
+            <label for="{{ form.requirements.id_for_label }}">Specific requirements</label>
+            {{ form.requirements }}
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-ghost prev">Back</button>
+            <button type="button" class="btn btn-primary next">Continue <svg class="ic ic-sm"><use href="#i-arrow"/></svg></button>
+          </div>
+        </section>
+
+        <!-- STEP 3 -->
+        <section class="form-step" data-step="3" {% if form.description.errors or form.consent.errors %}data-has-error{% endif %}>
+          <h3 class="step-title"><span class="step-badge">3</span> Define the opportunity.</h3>
+          <div class="grid-2">
+            <div class="field">
+              <label for="{{ form.budget.id_for_label }}">Estimated investment</label>
+              {{ form.budget }}
+            </div>
+            <div class="field">
+              <label for="{{ form.timeline.id_for_label }}">Expected timeline</label>
+              {{ form.timeline }}
+            </div>
+          </div>
+          <div class="field {% if form.description.errors %}has-error{% endif %}">
+            <label for="{{ form.description.id_for_label }}">Project overview <span class="req">*</span></label>
+            {{ form.description }}
+            <div class="field-meta"><span>At least 20 characters. Include the challenge, the outcome you want and key context.</span><span id="descCount" aria-live="off">0 / 2000</span></div>
+            <p class="field-error" data-error-for="description" role="alert">{% if form.description.errors %}{{ form.description.errors.0 }}{% endif %}</p>
+          </div>
+          <div class="field consent {% if form.consent.errors %}has-error{% endif %}">
+            <label class="check" for="{{ form.consent.id_for_label }}">
+              {{ form.consent }}
+              <span>I agree that my brief may be stored and used by Cynbit to contact me about this project. <span class="req">*</span></span>
+            </label>
+            <p class="field-error" data-error-for="consent" role="alert">{% if form.consent.errors %}{{ form.consent.errors.0 }}{% endif %}</p>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-ghost prev">Back</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Submit project brief <svg class="ic ic-sm"><use href="#i-arrow"/></svg></button>
+          </div>
+        </section>
+      </form>
+      <p class="fine-print">Assessment prototype only. Your details are stored in this demonstration app and are not sent to Cynbit.</p>
+    </div>
+
+    <aside class="side-col">
+      <div class="stat-row">
+        <div class="stat-card"><svg class="ic"><use href="#i-clock"/></svg><b>24 H</b><small>Response sync</small></div>
+        <div class="stat-card"><svg class="ic"><use href="#i-globe"/></svg><b>Global</b><small>Delivery hub</small></div>
+      </div>
+      <div class="info-card">
+        <div class="info-item"><span class="info-ic"><svg class="ic"><use href="#i-mail"/></svg></span><div><small>Mail us at</small><a href="mailto:opportunities@cynbit.in">opportunities@cynbit.in</a><a href="mailto:support@cynbit.in">support@cynbit.in</a></div></div>
+        <div class="info-item"><span class="info-ic"><svg class="ic"><use href="#i-phone"/></svg></span><div><small>Contact us at</small><a href="tel:+918947962667">+91 89479 62667</a><a href="tel:+917891209777">+91 78912 09777</a></div></div>
+        <div class="info-item"><span class="info-ic"><svg class="ic"><use href="#i-pin"/></svg></span><div><small>Address</small><span>32/115 Pratap Nagar,<br>Jaipur, RJ 302033</span></div></div>
+      </div>
+      <div class="info-card track-card">
+        <h4>Already sent a brief?</h4>
+        <p class="muted">Follow its progress with your reference number and email.</p>
+        <a class="btn btn-ghost btn-sm" href="{% url 'track' %}">Track my brief <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="info-card">
+        <h4>Specialized portals</h4>
+        <p class="muted">Seeking educational paths or joining our engineering lab?</p>
+        <a class="portal" href="#faq">BitElevate Program <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a>
+        <a class="portal" href="#overview">Join the Team <svg class="ic ic-sm"><use href="#i-arrow"/></svg></a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section-tint" id="faq">
+  <div class="container narrow">
+    <span class="kicker">Technical FAQ</span>
+    <h2>Common Inquiries.</h2>
+    <div class="faq">
+      <details><summary>How can I start a project with Cynbit?</summary><p>You can start by reaching out via email or phone. We&rsquo;ll schedule an initial discovery call to understand your requirements and architectural needs.</p></details>
+      <details><summary>Do you offer custom AI automation solutions?</summary><p>Yes, we specialize in building custom AI agents, LLM integrations, and automated business workflows tailored to your specific operations.</p></details>
+      <details><summary>Where is Cynbit Technologies located?</summary><p>Our core engineering hub is located in Pratap Nagar, Jaipur, Rajasthan, but we serve visionaries and enterprises globally.</p></details>
+      <details><summary>Can I join the BitElevate program?</summary><p>Absolutely! BitElevate is our flagship training initiative. You can find more details on the BitElevate page or contact us directly for enrollment information.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="privacy-note">
+  <div class="container cta-inner">
+    <div><h2>Ready to construct?</h2><p>Join the visionaries who trust Cynbit to architect their technical futures. Our engineering lab is ready for your challenge.</p></div>
+    <div class="cta-actions">
+      <a class="btn btn-light" href="#expertise">View services</a>
+      <a class="btn btn-outline-light" href="{% url 'track' %}">Track a brief</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

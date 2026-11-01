@@ -1,0 +1,42 @@
+{% extends 'inquiries/base.html' %}
+{% block title %}Track your brief | Cynbit{% endblock %}
+{% block content %}
+<section class="section center-page">
+  <div class="container narrow">
+    <span class="kicker">Project status</span>
+    <h1>Track your brief.</h1>
+    <p class="lead">Enter the reference you received after submitting, and the email address you used.</p>
+
+    <form method="post" class="form-card compact" novalidate>
+      {% csrf_token %}
+      <div class="grid-2">
+        <div class="field {% if form.reference.errors %}has-error{% endif %}">
+          <label for="{{ form.reference.id_for_label }}">Reference <span class="req">*</span></label>
+          <input type="text" name="reference" id="{{ form.reference.id_for_label }}" placeholder="CY-1A2B3C4D" maxlength="12" value="{{ form.reference.value|default_if_none:'' }}" required>
+          {% if form.reference.errors %}<p class="field-error">{{ form.reference.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="field {% if form.email.errors %}has-error{% endif %}">
+          <label for="{{ form.email.id_for_label }}">Email <span class="req">*</span></label>
+          <input type="email" name="email" id="{{ form.email.id_for_label }}" placeholder="you@company.com" value="{{ form.email.value|default_if_none:'' }}" required>
+          {% if form.email.errors %}<p class="field-error">{{ form.email.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+      <div class="step-actions"><span></span><button type="submit" class="btn btn-primary">Check status <svg class="ic ic-sm"><use href="#i-arrow"/></svg></button></div>
+    </form>
+
+    {% if inquiry %}
+    <div class="form-card compact result-card">
+      <div class="result-head"><div><small>Reference</small><strong>{{ inquiry.reference }}</strong></div><span class="pill pill-{{ inquiry.status }}">{{ inquiry.get_status_display }}</span></div>
+      <p class="muted">{{ inquiry.get_service_display }}{% if inquiry.project_type %} &middot; {{ inquiry.project_type }}{% endif %} &middot; received {{ inquiry.created_at|date:'d M Y' }}</p>
+      <ol class="timeline">
+        {% for key, label in inquiry.STATUS_CHOICES %}
+        <li class="{% if forloop.counter0 < inquiry.status_index %}done{% elif forloop.counter0 == inquiry.status_index %}current{% endif %}"><span class="tl-dot"></span><span>{{ label }}</span></li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% elif searched %}
+    <div class="form-card compact"><p class="field-error always" role="alert">We couldn&rsquo;t find a brief with that reference and email. Please check both and try again.</p></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

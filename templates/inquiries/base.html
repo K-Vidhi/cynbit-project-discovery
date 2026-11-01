@@ -1,0 +1,111 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#006067">
+  <meta name="description" content="A guided project-discovery experience prototype for Cynbit Technologies.">
+  <title>{% block title %}Start Your Next Project | Cynbit{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9.5a4.2 4.2 0 0 1-.5 8.5z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V5a2 2 0 0 0-3-1zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-link" href="{% url 'home' %}" aria-label="Cynbit project discovery home">
+      <svg class="logo" viewBox="0 0 150 40" role="img" aria-label="Cynbit">
+        <text x="0" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#006067" letter-spacing="1">CYN</text>
+        <path d="M63 26c6-15 12-15 18-5s12 10 18-5" fill="none" stroke="#006067" stroke-width="2.2" stroke-linecap="round"/>
+        <text x="101" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#006067" letter-spacing="1">BIT</text>
+      </svg>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="primaryNav" class="primary-nav" aria-label="Main">
+      <a class="nav-link plain" href="{% url 'home' %}#overview">Company</a>
+      <a class="nav-link plain" href="{% url 'home' %}#expertise">Expertise</a>
+      <a class="nav-link plain" href="{% url 'home' %}#faq">Learning &amp; FAQ</a>
+      <a class="nav-link plain" href="{% url 'track' %}">Track Brief</a>
+      <a class="nav-link plain{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'track' or request.resolver_match.url_name == 'thank_you' %} active{% endif %}" href="{% url 'home' %}#inquiry">Contact</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="{% url 'home' %}#inquiry">Get Started Now</a>
+    </nav>
+  </div>
+</header>
+
+{% if messages %}
+<div class="messages" role="status">
+  {% for message in messages %}<p class="message {{ message.tags }}">{{ message }}</p>{% endfor %}
+</div>
+{% endif %}
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg class="logo" viewBox="0 0 150 40" aria-hidden="true">
+        <text x="0" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#006067" letter-spacing="1">CYN</text>
+        <path d="M63 26c6-15 12-15 18-5s12 10 18-5" fill="none" stroke="#006067" stroke-width="2.2" stroke-linecap="round"/>
+        <text x="101" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#006067" letter-spacing="1">BIT</text>
+      </svg>
+      <p>Architecting scalable digital platforms, AI automation systems and high-performance engineering labs.</p>
+      <div class="footer-contact">
+        <a href="mailto:opportunities@cynbit.in"><svg class="ic ic-sm"><use href="#i-mail"/></svg> opportunities@cynbit.in</a>
+        <a href="tel:+918947962667"><svg class="ic ic-sm"><use href="#i-phone"/></svg> +91 89479 62667</a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="{% url 'home' %}#overview" >About Us</a>
+      <a href="{% url 'home' %}#overview" >Core Team</a>
+      <a href="{% url 'home' %}#expertise" >Our Services</a>
+      <a href="{% url 'home' %}#expertise" >Product Suite</a>
+    </div>
+    <div>
+      <h4>Project desk</h4>
+      <a href="{% url 'home' %}#inquiry">Start discovery</a>
+      <a href="{% url 'track' %}">Track a brief</a>
+      <a href="{% url 'home' %}#privacy-note" >Prototype note</a>
+      <a href="{% url 'track' %}">Project tracker</a>
+    </div>
+    <div>
+      <h4>Headquarters</h4>
+      <p class="muted">32/115 Pratap Nagar, Jaipur<br>Rajasthan, 302033</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Cynbit-inspired assessment prototype. Engineered for Optimism.</span>
+    <span>Independent demonstration &middot; not connected to Cynbit production systems.</span>
+  </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
